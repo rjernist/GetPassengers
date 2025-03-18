@@ -1,3 +1,6 @@
+// RJ Sam
+// Major Program 1 - Get Passengers
+// CS 3013
 package example.getpassengers
 
 import android.app.Activity
@@ -18,7 +21,7 @@ class GetPassengers : AppCompatActivity() {
     private lateinit var lastName: EditText
     private lateinit var phoneNumber: EditText
     private lateinit var addButton: Button
-    private lateinit var backButton: EditText
+    private lateinit var backButton: Button
     private lateinit var textPut: TextView
     private val passList: MutableList<Passenger> = ArrayList()
 
@@ -35,18 +38,22 @@ class GetPassengers : AppCompatActivity() {
         textPut = findViewById(R.id.accum_list)
 
         addButton.setOnClickListener {
-            val fName = firstName.text.toString()
-            val lName = lastName.text.toString()
-            val phone = phoneNumber.text.toString()
+            val fName = firstName.text.toString().trim()
+            val lName = lastName.text.toString().trim()
+            val phone = phoneNumber.text.toString().trim()
 
-            val newPassenger = Passenger(fName, lName, phone)
-            passList.add(newPassenger)
+            if (fName.isEmpty() || lName.isEmpty() || phone.isEmpty()) {
+                Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                val newPassenger = Passenger(fName, lName, phone)
+                passList.add(newPassenger)
 
-            textPut.append("\n${newPassenger.toString()}")
+                textPut.append("\n${newPassenger.toString()}")
 
-            firstName.text.clear()
-            lastName.text.clear()
-            phoneNumber.text.clear()
+                firstName.text.clear()
+                lastName.text.clear()
+                phoneNumber.text.clear()
+            }
         }
 
         backButton.setOnClickListener {
@@ -58,6 +65,7 @@ class GetPassengers : AppCompatActivity() {
             }
 
             setResult(Activity.RESULT_OK, resultIntent)
+            finish()
         }
     }
 }

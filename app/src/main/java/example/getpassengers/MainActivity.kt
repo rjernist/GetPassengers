@@ -1,8 +1,11 @@
 // RJ Sam
+// Major Program 1 - Get Passengers
+// CS 3013
 package example.getpassengers
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -22,10 +25,8 @@ class MainActivity : AppCompatActivity() {
                 val data = result.data
                 val count = data?.getStringExtra("COUNT")?.toIntOrNull() ?: 0
 
-                // Clear any previous list in the TextView
                 listText.text = "RETURNED PASSENGER LIST:"
 
-                // Iterate through the number of passengers and display each one
                 for (i in 1..count) {
                     val passenger = data?.getStringExtra("PASS$i") ?: ""
                     listText.append("\n$passenger")
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         val getListButton: Button = findViewById(R.id.get_list_button)
 
         getListButton.setOnClickListener {
+            Log.d("MainActivity", "Button Clicked!")
             val intent = Intent(this, GetPassengers::class.java)
             startForResult.launch(intent)
         }
